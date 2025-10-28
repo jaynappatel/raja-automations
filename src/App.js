@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Calendar, MessageSquare, Shield, Zap, Users, ArrowRight, CheckCircle, Menu, X, Sparkles } from 'lucide-react';
+import { Phone, Calendar, MessageSquare, Shield, Zap, ArrowRight, CheckCircle, Menu, X, Sparkles } from 'lucide-react';
 
 function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -452,19 +452,19 @@ function App() {
             <div>
               <h5 className="font-semibold mb-4">Company</h5>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">About Us</a></li>
+                <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">About Us</button></li>
                 <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Contact</button></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Careers</a></li>
-              </ul>
+                <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Careers</button></li>
+               </ul>
             </div>
             
             <div>
               <h5 className="font-semibold mb-4">Legal</h5>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">HIPAA Compliance</a></li>
-              </ul>
+             <ul className="space-y-2 text-gray-400">
+                   <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Privacy Policy</button></li>
+                    <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Terms of Service</button></li>
+                   <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">HIPAA Compliance</button></li>
+  </ul>
             </div>
           </div>
           
