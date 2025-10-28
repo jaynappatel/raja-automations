@@ -1,100 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Calendar, MessageSquare, Shield, Zap, Users, ArrowRight, CheckCircle, Menu, X, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Phone, Calendar, MessageSquare, Shield, Zap, ArrowRight, CheckCircle, Sparkles } from 'lucide-react';
 
-function App() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+function Home() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
     const handleMouseMove = (e) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
+    return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setMobileMenuOpen(false);
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white text-gray-900 overflow-hidden">
-      {/* Navigation */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white/80 backdrop-blur-sm'
-      } border-b border-gray-200`}>
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-3 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-              <div className="text-3xl font-bold transition-all duration-300 group-hover:scale-110" style={{
-                background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>
-                RA
-              </div>
-              <div className="text-xl font-bold text-gray-900">
-                RAJA AUTOMATIONS
-              </div>
-            </div>
-            
-            {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-              <button onClick={() => scrollToSection('features')} className="text-gray-700 hover:text-orange-500 transition-all duration-300 relative group">
-                Features
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-600 group-hover:w-full transition-all duration-300"></span>
-              </button>
-              <button onClick={() => scrollToSection('how-it-works')} className="text-gray-700 hover:text-orange-500 transition-all duration-300 relative group">
-                How It Works
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-600 group-hover:w-full transition-all duration-300"></span>
-              </button>
-              <button onClick={() => scrollToSection('pricing')} className="text-gray-700 hover:text-orange-500 transition-all duration-300 relative group">
-                Pricing
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-600 group-hover:w-full transition-all duration-300"></span>
-              </button>
-              <button onClick={() => scrollToSection('contact')} className="text-gray-700 hover:text-orange-500 transition-all duration-300 relative group">
-                Contact
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-orange-400 to-orange-600 group-hover:w-full transition-all duration-300"></span>
-              </button>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-orange-500 transition-transform duration-300 hover:scale-110"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X /> : <Menu />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          {mobileMenuOpen && (
-            <div className="md:hidden mt-4 space-y-4 animate-fade-in">
-              <button onClick={() => scrollToSection('features')} className="block w-full text-left text-gray-700 hover:text-orange-500 transition">Features</button>
-              <button onClick={() => scrollToSection('how-it-works')} className="block w-full text-left text-gray-700 hover:text-orange-500 transition">How It Works</button>
-              <button onClick={() => scrollToSection('pricing')} className="block w-full text-left text-gray-700 hover:text-orange-500 transition">Pricing</button>
-              <button onClick={() => scrollToSection('contact')} className="block w-full text-left text-gray-700 hover:text-orange-500 transition">Contact</button>
-            </div>
-          )}
-        </div>
-      </nav>
-
+    <div className="min-h-screen bg-white text-gray-900">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 relative overflow-hidden bg-gradient-to-br from-orange-50 via-white to-yellow-50">
         {/* Animated background gradient */}
@@ -154,19 +75,19 @@ function App() {
             Transform your front desk with intelligent AI receptionist technology. Handle calls, schedule appointments, and engage clients 24/7.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <button onClick={() => scrollToSection('contact')} className="px-8 py-4 rounded-lg font-semibold text-lg text-white transition-all flex items-center justify-center gap-2 hover:scale-105 hover:shadow-2xl group" style={{
+            <Link to="/contact" className="px-8 py-4 rounded-lg font-semibold text-lg text-white transition-all flex items-center justify-center gap-2 hover:scale-105 hover:shadow-2xl group" style={{
               background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)',
               boxShadow: '0 10px 40px rgba(253, 185, 49, 0.4)'
             }}>
               Get Started 
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button onClick={() => scrollToSection('contact')} className="border-2 px-8 py-4 rounded-lg font-semibold text-lg bg-white hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-xl" style={{
+            </Link>
+            <Link to="/contact" className="border-2 px-8 py-4 rounded-lg font-semibold text-lg bg-white hover:bg-gray-50 transition-all hover:scale-105 hover:shadow-xl" style={{
               borderColor: '#FDB931',
               color: '#FF8C42'
             }}>
               Watch Demo
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -295,100 +216,10 @@ function App() {
         </div>
       </section>
 
-      {/* How It Works */}
-      <section id="how-it-works" className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Simple Setup, Powerful Results
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            Get started in three easy steps
-          </p>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center group">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-xl" style={{
-                background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)'
-              }}>
-                1
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Consultation & Setup</h3>
-              <p className="text-gray-600">
-                We learn about your practice and customize the AI to match your workflow and voice
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-xl" style={{
-                background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)'
-              }}>
-                2
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Integration</h3>
-              <p className="text-gray-600">
-                Connect with your existing calendar, phone system, and practice management software
-              </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-2xl font-bold text-white transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-xl" style={{
-                background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)'
-              }}>
-                3
-              </div>
-              <h3 className="text-xl font-bold mb-4 text-gray-900">Go Live</h3>
-              <p className="text-gray-600">
-                Your AI receptionist starts handling calls, bookings, and client engagement immediately
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="py-20 px-6 bg-gray-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-gray-900">
-            Affordable Pricing for Every Practice
-          </h2>
-          <p className="text-center text-gray-600 mb-16 max-w-2xl mx-auto">
-            Flexible plans that grow with your business
-          </p>
-          
-          <div className="max-w-md mx-auto bg-white p-8 rounded-xl border-2 border-orange-400 shadow-2xl hover:shadow-3xl transition-all duration-300 hover:scale-105">
-            <h3 className="text-3xl font-bold mb-4 text-gray-900">Custom Pricing</h3>
-            <p className="text-gray-600 mb-6">
-              We offer flexible pricing based on your practice size and needs. Get a personalized quote today.
-            </p>
-            <ul className="space-y-3 mb-8">
-              <li className="flex items-start gap-2 group">
-                <CheckCircle size={20} className="text-orange-500 mt-1 flex-shrink-0 group-hover:scale-125 transition-transform" />
-                <span className="text-gray-700">No long-term contracts</span>
-              </li>
-              <li className="flex items-start gap-2 group">
-                <CheckCircle size={20} className="text-orange-500 mt-1 flex-shrink-0 group-hover:scale-125 transition-transform" />
-                <span className="text-gray-700">Scalable as you grow</span>
-              </li>
-              <li className="flex items-start gap-2 group">
-                <CheckCircle size={20} className="text-orange-500 mt-1 flex-shrink-0 group-hover:scale-125 transition-transform" />
-                <span className="text-gray-700">24/7 support included</span>
-              </li>
-            </ul>
-            <button onClick={() => scrollToSection('contact')} className="w-full py-4 rounded-lg font-semibold text-lg text-white transition-all hover:scale-105 hover:shadow-2xl" style={{
-              background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)',
-              boxShadow: '0 10px 40px rgba(253, 185, 49, 0.4)'
-            }}>
-              Get a Quote
-            </button>
-          </div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section id="contact" className="py-20 px-6 relative overflow-hidden" style={{
+      <section className="py-20 px-6 relative overflow-hidden" style={{
         background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)'
       }}>
-        {/* Animated background */}
         <div className="absolute inset-0 opacity-20">
           {[...Array(30)].map((_, i) => (
             <div
@@ -412,67 +243,15 @@ function App() {
             Join practices already saving time and improving client satisfaction with AI automation
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="mailto:rajaautomations25@gmail.com" className="bg-white text-orange-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-all shadow-lg hover:scale-105 hover:shadow-2xl inline-block">
+            <Link to="/contact" className="bg-white text-orange-600 px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-50 transition-all shadow-lg hover:scale-105 hover:shadow-2xl">
               Schedule a Demo
-            </a>
-            <a href="mailto:rajaautomations25@gmail.com" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all hover:scale-105 inline-block">
+            </Link>
+            <Link to="/contact" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-white/10 transition-all hover:scale-105">
               Contact Sales
-            </a>
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="py-12 px-6 bg-gray-900 text-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8 mb-8">
-            <div>
-              <h4 className="font-bold text-xl mb-4 transition-all duration-300 hover:scale-105 inline-block" style={{
-                background: 'linear-gradient(135deg, #FDB931 0%, #FF8C42 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}>
-                RAJA AUTOMATIONS
-              </h4>
-              <p className="text-gray-400">
-                Intelligent systems that scale your business
-              </p>
-            </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Product</h5>
-              <ul className="space-y-2 text-gray-400">
-                <li><button onClick={() => scrollToSection('features')} className="hover:text-orange-400 transition hover:translate-x-1">Features</button></li>
-                <li><button onClick={() => scrollToSection('pricing')} className="hover:text-orange-400 transition hover:translate-x-1">Pricing</button></li>
-                <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Demo</button></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Company</h5>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">About Us</a></li>
-                <li><button onClick={() => scrollToSection('contact')} className="hover:text-orange-400 transition hover:translate-x-1">Contact</button></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Careers</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h5 className="font-semibold mb-4">Legal</h5>
-              <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Privacy Policy</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-orange-400 transition hover:translate-x-1 inline-block">HIPAA Compliance</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-            <p>&copy; 2025 Raja Automations. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
 
       <style jsx>{`
         @keyframes float {
@@ -515,7 +294,9 @@ function App() {
         
         .animate-float {
           animation: float linear infinite;
-        } .animate-fade-in-up {
+        }
+        
+        .animate-fade-in-up {
           animation: fade-in-up 0.6s ease-out forwards;
         }
         
@@ -531,4 +312,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
